@@ -52,7 +52,7 @@ public class BJ_3184_Main {
 			int cx = q.peek()[0];
 			int cy = q.peek()[1];
 			q.poll();
-			if(map[cx][cy].equals("k")) cntS++;
+			if(map[cx][cy].equals("o")) cntS++;
 			else if(map[cx][cy].equals("v")) cntW++;
 
 			for (int i = 0; i < 4; i++) {
