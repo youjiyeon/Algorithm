@@ -1,0 +1,34 @@
+package day0929;
+
+//import java.io.*;
+import java.util.*;
+
+public class daily1 {
+
+	public static void main(String[] args) {
+		
+		Scanner s = new Scanner(System.in);
+		//아파트 색칠하기 1차원 동적테이블 상향식
+
+		int n = s.nextInt();
+
+		// 동적 테이블 - 아파트 색칠하는 경우의 수 저장
+		//d[3] - 3층을 칠하는 경우의 수
+		int[] d = new int[n+1];
+
+		//1층, 2층 칠하는 경우의 수 저장
+		d[1] = 2;
+		d[2] = 3;
+
+		//d[3] = d[2] + d[1]
+		//d[4] = d[3] + d[2]
+
+		for(int i =3; i<=n; i++){
+		  d[i] = d[i-1] +d[i-2];
+		}
+
+		System.out.println(d[n]);
+
+	}
+
+}
