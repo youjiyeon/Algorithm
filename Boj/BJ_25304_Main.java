@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 public class BJ_25304_Main {
     public static void main(String[] args) throws IOException {
+        // 입력
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int total = Integer.parseInt(br.readLine());
 
@@ -16,10 +17,13 @@ public class BJ_25304_Main {
 
             total -= (val*cnt);
         }
-
+        // 
+        
+        // 결과 출력
         if(total==0){
             System.out.println("Yes");
         }
         else System.out.println("No");
+        //
     }
 }
