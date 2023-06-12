@@ -16,20 +16,17 @@ public class BJ_1966_Main {
 			Queue<Integer> queue = new LinkedList<Integer>();
 			PriorityQueue<Integer> priqueue = new PriorityQueue<Integer>(Collections.reverseOrder());
 			
-			//int target = 0; // 궁금한 문서 값 저장
 			int cnt = 0; // 몇번째로 인쇄되는 지
 			
 			st = new StringTokenizer(br.readLine());
 			for (int i = 0; i < N; i++) 
 			{
 				int in = Integer.parseInt(st.nextToken());
-/*				if(i==M)
-					target = in;*/
 				priqueue.add(in);
 				queue.add(in);
 			}
 			
-			while(true)//!queue.isEmpty() && !priqueue.isEmpty())
+			while(true)
 			{
 				
 				int out = queue.poll();
@@ -37,7 +34,6 @@ public class BJ_1966_Main {
 				// 인쇄하는 경우
 				if(out == priqueue.peek()) 
 				{
-					//System.out.println("Print "+M+" "+out+" "+priqueue.peek());
 					priqueue.poll();
 					cnt++;
 					if(M==0)
@@ -49,7 +45,6 @@ public class BJ_1966_Main {
 				// 인쇄 안하는 경우 -> 다시 queue로 add
 				else
 				{
-					//System.out.println("No print "+M+" "+out+" "+priqueue.peek());
 					queue.add(out);
 					M--;
 					if(M<0)
