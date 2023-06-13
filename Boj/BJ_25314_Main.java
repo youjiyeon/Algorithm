@@ -19,7 +19,7 @@ public class BJ_25314_Main {
 		// 4의 몇배수인지 확인
 		int n = val/4;
 		
-		//
+		// 해당 배수만큼 long 출력 반복
 		for(int i=0;i<n;i++){
 			System.out.print("long ");
 		}
