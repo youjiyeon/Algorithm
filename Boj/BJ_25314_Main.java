@@ -16,7 +16,10 @@ public class BJ_25314_Main {
 		int val = Integer.parseInt(br.readLine());
 		//
 		
+		// 4의 몇배수인지 확인
 		int n = val/4;
+		
+		//
 		for(int i=0;i<n;i++){
 			System.out.print("long ");
 		}
