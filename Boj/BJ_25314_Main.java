@@ -1,3 +1,9 @@
+/*
+* 문제 설명
+* 4마다 long 출력
+* 마지막에 int 출력
+*/
+
 import java.io.*;
 import java.util.*;
 
