@@ -23,6 +23,7 @@ public class BJ_25314_Main {
 		for(int i=0;i<n;i++){
 			System.out.print("long ");
 		}
+		// 마지막에 int 출력
 		System.out.print("int");
 	}
 
