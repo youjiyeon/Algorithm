@@ -22,12 +22,13 @@ public class BJ_5597_Main {
         }
         //
         
-        //
+        // 결과 출력
         for (int i = 1; i < 31; i++) {
             if(!visit[i]){
                 System.out.println(i);
             }
         }
+        //
     }
 
 }
