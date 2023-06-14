@@ -27,6 +27,7 @@ public class BJ_5597_Main {
         // 오름차순으로 검사
         for (int i = 1; i < 31; i++) {
             // 입력이 안들어온 경우
+            // 해당 수 출력
             if(!visit[i]){
                 System.out.println(i);
             }
