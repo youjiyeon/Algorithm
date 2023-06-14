@@ -18,6 +18,7 @@ public class BJ_5597_Main {
         visit = new boolean[31];
         for (int i = 0; i < 28; i++) {
             int val = Integer.parseInt(br.readLine());
+            // 입력이 들어온다면 true로 변환
             visit[val] = true;
         }
         //
