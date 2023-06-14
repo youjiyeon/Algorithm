@@ -1,3 +1,9 @@
+/*
+* 문제 설명
+* 28개의 입력을 받고
+* 입력이 안들어온 두 수를 오른차순으로 출력
+*/
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
