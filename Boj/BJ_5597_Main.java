@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class BJ_5597_Main {
+    // 30개의 숫자의 입력 유무를 나타내기 위한 boolean 배열
     public static boolean[] visit;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
