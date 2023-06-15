@@ -29,6 +29,8 @@ public class BJ_16929_Main {
             }
         }
         //
+        
+        // 각 칸마다 dfs
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
 
@@ -43,6 +45,7 @@ public class BJ_16929_Main {
             }
         }
         System.out.println("No");
+        //
 
     }
 
