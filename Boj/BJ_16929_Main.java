@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 * 자신이랑 같은 값이 반복되어서
 * 결국 자신의 자리까지 도달하는 지 확인
  */
+
 public class BJ_16929_Main {
     public static int N, M, sx, sy;
     public static char[][] map;
