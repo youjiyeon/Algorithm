@@ -15,6 +15,7 @@ public class BJ_16929_Main {
     public static boolean[][] visit;
     public static int[][] way = {{-1,0},{1,0},{0,-1},{0,1}};
     public static void main(String[] args) throws IOException {
+        // 입력
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
@@ -27,7 +28,7 @@ public class BJ_16929_Main {
                 map[i][j] = str.charAt(j);
             }
         }
-
+        //
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
 
