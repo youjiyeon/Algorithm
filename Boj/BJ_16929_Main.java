@@ -45,6 +45,8 @@ public class BJ_16929_Main {
                 }
             }
         }
+        
+        // 사이클이 존재하지 않는다면
         System.out.println("No");
         //
 
