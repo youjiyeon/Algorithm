@@ -37,7 +37,8 @@ public class BJ_16929_Main {
                 visit = new boolean[N][M];
                 sx = i;
                 sy = j;
-
+                    
+                // 사이클이 존재하면
                 if(dfs(i,j,1)){
                     System.out.println("Yes");
                     return;
