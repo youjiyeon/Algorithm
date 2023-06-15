@@ -54,6 +54,7 @@ public class BJ_16929_Main {
 
     public static boolean dfs(int x, int y, int cnt) {
         
+        // 방문 처리
         visit[x][y] = true;
 
         for (int i = 0; i < 4; i++) {
@@ -67,6 +68,7 @@ public class BJ_16929_Main {
                     if(dfs(nx, ny, cnt+1)) return true;
                 }
                 else{
+                    // cnt가 4이상이고 자기자신이라면
                     if(nx==sx && ny==sy && cnt>=4){
                         return true;
                     }
