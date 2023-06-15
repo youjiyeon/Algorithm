@@ -60,11 +60,16 @@ public class BJ_16929_Main {
         for (int i = 0; i < 4; i++) {
             int nx = x + way[i][0];
             int ny = y + way[i][1];
-
+               
+            // 경계 확인
             if(nx>=0 && nx<N && ny>=0 && ny<M
                     && map[nx][ny] == map[x][y]){
+                
+                // 방문 확인
                 if(!visit[nx][ny]) {
                     visit[nx][ny] = true;
+                    
+                    // 다음 자리로 이동
                     if(dfs(nx, ny, cnt+1)) return true;
                 }
                 else{
