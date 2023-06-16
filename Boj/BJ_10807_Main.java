@@ -23,6 +23,7 @@ public class BJ_10807_Main {
         int cnt = 0;
         for (int i = 0; i < N; i++) {
             int num = Integer.parseInt(st.nextToken());
+            // 값이 일치한다면 cnt++
             if(num == val) cnt++;
         }
 
