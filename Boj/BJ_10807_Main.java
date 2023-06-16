@@ -1,6 +1,7 @@
 /*
-*
-*
+* 문제 설명
+* 들어온 N개의 인자값에서
+* 타겟 val와 일치하는 값의 개수를 출력
 */
 
 import java.io.BufferedReader;
