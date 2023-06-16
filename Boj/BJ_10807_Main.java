@@ -27,6 +27,7 @@ public class BJ_10807_Main {
             if(num == val) cnt++;
         }
 
+        // 결과값 출력
         System.out.println(cnt);
     }
 }
