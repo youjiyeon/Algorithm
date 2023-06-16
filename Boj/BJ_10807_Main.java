@@ -20,13 +20,16 @@ public class BJ_10807_Main {
         int val = Integer.parseInt(br.readLine());
         //
         
+        // 개수 Count
         int cnt = 0;
+        // StringTokenizer의 들어있는 값만큼 for
         for (int i = 0; i < N; i++) {
             int num = Integer.parseInt(st.nextToken());
             // 값이 일치한다면 cnt++
             if(num == val) cnt++;
         }
-
+        //
+        
         // 결과값 출력
         System.out.println(cnt);
     }
