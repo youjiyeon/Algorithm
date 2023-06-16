@@ -11,10 +11,15 @@ import java.util.StringTokenizer;
 
 public class BJ_10807_Main {
     public static void main(String[] args) throws IOException {
+        // 입력
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
+        // N개의 인자값을 StringTokenizer에 저장
         StringTokenizer st = new StringTokenizer(br.readLine());
+        // 타켓 값 val
         int val = Integer.parseInt(br.readLine());
+        //
+        
         int cnt = 0;
         for (int i = 0; i < N; i++) {
             int num = Integer.parseInt(st.nextToken());
