@@ -8,17 +8,17 @@ public class BJ_1197_Main {
     static class Node implements Comparable<Node>{
         int from;
         int to;
-        int wight;
+        int weight;
 
         public Node(int from, int to, int wight) {
             this.from = from;
             this.to = to;
-            this.wight = wight;
+            this.weight = weight;
         }
 
         @Override
         public int compareTo(Node n){
-            return this.wight - n.wight;
+            return this.weight - n.weight;
         }
     }
 
@@ -40,9 +40,9 @@ public class BJ_1197_Main {
             st = new StringTokenizer(br.readLine());
             int from = Integer.parseInt(st.nextToken());
             int to = Integer.parseInt(st.nextToken());
-            int wight = Integer.parseInt(st.nextToken());
+            int weight = Integer.parseInt(st.nextToken());
 
-            list.add(new Node(from, to, wight));
+            list.add(new Node(from, to, weight));
         }
         Collections.sort(list);
         set();
@@ -52,7 +52,7 @@ public class BJ_1197_Main {
 
         for (Node n: list) {
             if(union(n.from, n.to)){
-                sum += n.wight;
+                sum += n.weight;
                 cnt++;
                 if(cnt == E-1) break;
             }
