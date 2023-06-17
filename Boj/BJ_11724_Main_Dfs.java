@@ -3,7 +3,7 @@
 import java.io.*;
 import java.util.*;
 
-public class BJ_11724_Main {
+public class BJ_11724_Main_Dfs {
 
 	static int N, M, V, cnt;
 	static boolean[] visit;
@@ -16,7 +16,6 @@ public class BJ_11724_Main {
 		
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		//V = Integer.parseInt(st.nextToken());
 		
 		cnt = 0;
 		visit = new boolean[N+1];
@@ -36,33 +35,20 @@ public class BJ_11724_Main {
 			graph[in1].add(in2);
 			graph[in2].add(in1); // 양방향
 		}
-/*		
-		for (int i = 1; i <= N; i++) 
-		{
-			Collections.sort(graph[i]);
-		}
-		*/
-		
-		//visit[V] = true;
-		
-		//dfs(V);
+
 		for (int j = 1; j <= N; j++) 
 		{
 			if(!visit[j])
 			{
-				//visit[to] = true;
 				dfs(j);
 				cnt++;
 			}	
-			// foreach써서 틀림
 		}
 		System.out.println(cnt);
 		
 	}
 
 	static void dfs(int start) {
-		
-		//System.out.print(start+" ");
 		
 		for(int to : graph[start]) 
 		{
