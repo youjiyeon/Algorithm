@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class BJ_11724_Main {
+public class BJ_11724_Main_Union {
     public static int N;
     public static int[] parent;
     public static void main(String[] args) throws IOException {
