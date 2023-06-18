@@ -24,6 +24,7 @@ public class BJ_2166_Main {
             y += c[i] * r[i+1];
         }
 
+        // 소수점 첫번째까지 출력 & 반올림
         String str = String.format("%.1f",(Math.abs(x-y)/2.0));
         bw.write(str);
 
