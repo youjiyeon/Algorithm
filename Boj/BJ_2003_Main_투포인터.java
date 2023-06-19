@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BJ_2003_Main {
+public class BJ_2003_Main_투포인터 {
     public static int N, M, cnt;
     public static int[] num;
     public static void main(String[] args) throws IOException {
