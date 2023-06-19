@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class BJ_16472_Main {
+public class BJ_16472_Main_투포인터 {
     public static int cnt, result;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
