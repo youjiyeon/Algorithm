@@ -10,9 +10,7 @@ public class BJ_2467_Main {
     public static int m1 = 0, m2 = 0, N;
     public static long min;
     public static void main(String[] args) throws IOException {
-        // 일단 조합
-        // 알카리 + 산성
-        // 각각 하나씩
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
         arr = new long[N];
