@@ -4,49 +4,38 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class BJ_14465_Main {
-    public static int N, X, max, cnt;
+    public static int N, K, B, min;
     public static int[] arr;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        X = Integer.parseInt(st.nextToken());
-        arr = new int[N];
-        max = 0; cnt = 0;
+        K = Integer.parseInt(st.nextToken());
+        B = Integer.parseInt(st.nextToken());
+        arr = new int[N+1];
+        min = 0;
 
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < B; i++) {
+            arr[Integer.parseInt(br.readLine())] += 1;
         }
 
         // 슬라이드
         slide();
-        if (max==0) {
-            System.out.println("SAD");
-            System.exit(0);
-        }
-        System.out.println(max+"\n"+cnt);
+        System.out.println(min);
     }
 
     private static void slide() {
         int sum = 0;
-        for (int i = 0; i < X; i++) {
+        for (int i = 1; i <= K; i++) {
             sum+=arr[i];
         }
-        max = sum;
-        //System.out.println(max);
-        if(max!=0) cnt = 1;
+        min = sum;
 
-        for (int i = 0, j = X; j < N; i++, j++) {
-            sum-=arr[i];
-            sum+=arr[j];
-            //System.out.println(sum);
-            if(max<sum){
-                max = sum;
-                cnt = 1;
-            }
-            else if (max==sum){
-                cnt++;
+        for (int i = 1, j = K+1; j <= N; i++, j++) {
+            if(arr[i]!=0) sum-=arr[i];
+            if(arr[j]!=0) sum+=arr[j];
+            if(min>sum){
+                min = sum;
             }
         }
     }
