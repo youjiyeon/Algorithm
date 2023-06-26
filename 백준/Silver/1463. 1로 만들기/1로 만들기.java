@@ -7,7 +7,6 @@ public class Main {
 	static int[] DP = new int[1000001];
 	public static void main(String[] args) throws NumberFormatException, IOException {
 
-		//Scanner s = new Scanner(System.in);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
 		
