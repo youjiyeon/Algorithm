@@ -9,6 +9,7 @@ public class Main {
         
         // Math의 클래스의 pow()메서드를 사용했다.
         // Math.pow(거듭제곱할 숫자, 거듭제곱(몇제곱인지);
+        // 각 변의 점의 개수의 제곱
         System.out.println((int)Math.pow(Math.pow(2, n) +1, 2));
     }
 }
