@@ -4,65 +4,66 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int N, M, K, answer;
-    static int[][] arr;
-    static boolean[][] visited;
-    static int[] dx = {-1, 0, 1, 0};
-    static int[] dy = {0, -1, 0, 1};
+    static int N, M, K, max;
+    static int[][] map;
+    static int[][] way = {{-1,0},{0,-1},{1,0},{0,1}};
+    static boolean[][] visit;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-    public static void solve(int x, int y, int idx, int sum) {
-        if (idx == K) {
-            answer = Math.max(answer, sum);
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        max = Integer.MIN_VALUE;
+        map = new int[N][M];
+        visit = new boolean[N+1][M+1];
+
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < M; j++) {
+                map[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        solve(0,0,0,0);
+        System.out.println(max);
+    }
+
+    // 인접하지 않은 K개의 칸을 선택
+    public static void solve(int cnt, int r, int c, int sum){
+        if(cnt==K){
+            // 최대값 비교
+            max = Math.max(max, sum);
             return;
-        } else {
-            for (int i = x; i < N; i++) {
-                for (int j = y; j < M; j++) {
-                    if (!visited[i][j]) {
-                        if (check(i, j)) {
-                            visited[i][j] = true;
-                            solve(x, y, idx + 1, sum + arr[i][j]);
-                            visited[i][j] = false;
+        }
+        else {
+            for (int i = r; i < N; i++) {
+                for (int j = c; j < M; j++) {
+                    if (!visit[i][j]) {
+                        if (isRight(i, j)) {
+                            visit[i][j] = true;
+                            solve(cnt + 1, r, c, sum + map[i][j]);
+                            visit[i][j] = false;
                         }
                     }
                 }
             }
         }
-
     }
 
-    public static boolean check(int x, int y) {
+    public static boolean isRight(int r, int c){
         boolean flag = true;
-        for (int i = 0; i < 4; i++) {
-            int next_x = x + dx[i];
-            int next_y = y + dy[i];
+        for (int k = 0; k < 4; k++) {
+            int nr = r + way[k][0];
+            int nc = c + way[k][1];
 
-            if (next_x >= 0 && next_x < N && next_y >= 0 && next_y < M) {
-                if (visited[next_x][next_y]) {
+            if(nr>=0 && nr<N && nc>=0 && nc<M){
+                if(visit[nr][nc]) {
                     flag = false;
                 }
             }
         }
         return flag;
-    }
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        K = Integer.parseInt(st.nextToken());
-        arr = new int[N][M];
-        visited = new boolean[N + 1][M + 1];
-        answer = Integer.MIN_VALUE;
-
-        for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine(), " ");
-            for (int j = 0; j < M; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
-
-        solve(0, 0, 0, 0);
-        System.out.println(answer);
     }
 }
