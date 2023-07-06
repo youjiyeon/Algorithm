@@ -60,28 +60,4 @@ public class Main {
 		System.out.println(min);
 	}
 
-/*	public static void SearchMin(int i) {
-		
-		int min = Integer.MAX_VALUE;
-		int minidx = -1;
-		// 가장 작은 집의 가격
-		// 앞 집의 색깔이랑 달라야함
-		for (int j = 0; j < 3; j++) {
-			if (min > house[i][j]) {
-				min = house[i][j];
-				minidx = j;
-			}
-		}
-		if (d[i] == minidx) 
-		{
-			house[i][minidx] = Integer.MAX_VALUE;
-			SearchMin(i);
-		}
-		else
-		{
-			d[i+1] = minidx;
-			sum += min;
-		}
-	}*/
-
 }
