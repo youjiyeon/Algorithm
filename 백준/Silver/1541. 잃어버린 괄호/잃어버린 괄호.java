@@ -6,7 +6,6 @@ import java.util.*;
 public class Main {
     public static int min = Integer.MAX_VALUE;
     public static String[] arr;
-    public static List<Character> cal = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
