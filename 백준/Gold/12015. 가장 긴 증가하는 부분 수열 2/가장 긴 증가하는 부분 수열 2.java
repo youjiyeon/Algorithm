@@ -51,6 +51,6 @@ public class Main {
             }
             else r = mid;
         }
-        return r;
+        return l;
     }
 }
