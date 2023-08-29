@@ -5,7 +5,6 @@ public class Main {
     static int N, M, H, min = 4;
     // a 세로줄에서 b 가로줄
     static int[][] map;
-    static boolean flag;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
