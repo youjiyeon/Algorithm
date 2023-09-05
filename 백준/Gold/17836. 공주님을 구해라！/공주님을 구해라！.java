@@ -51,7 +51,7 @@ public class Main {
             int size = q.size();
             while (size-- > 0) {
                 Node cur = q.poll();
-                //System.out.println(x+" "+y+" "+sword);
+                
                 if (cnt>T)
                     return;
 
