@@ -10,9 +10,9 @@ public class Main
         int B = sc.nextInt();
         int C = sc.nextInt();
 
-        System.out.print( (A + B) % C + "\n");
-        System.out.print(( (A % C) + (B % C) ) % C + "\n");
-        System.out.print( (A * B) % C + "\n");
-        System.out.print(( (A % C) * (B % C) ) % C + "\n");
+        System.out.println( (A + B) % C);
+        System.out.println(( (A % C) + (B % C) ) % C);
+        System.out.println( (A * B) % C);
+        System.out.println(( (A % C) * (B % C) ) % C);
     }
 }
