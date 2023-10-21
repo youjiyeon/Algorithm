@@ -2,92 +2,82 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
 
-	public static class Node {
-		int idx, cost;
+	public static class Node{
+		int idx;
+		int cost;
 
-		Node(int idx, int cost) {
+		public Node(int idx, int cost) {
 			this.idx = idx;
 			this.cost = cost;
 		}
 	}
-
-	public static int N, E, mustA, mustB, min;
+	public static int N, E, start, end;
 	public static int[] dist;
-	public static boolean[] visit;
-	public static ArrayList<ArrayList<Node>> graph;
+	public static List<Node>[] lists;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
-		min = 0;
 		N = Integer.parseInt(br.readLine());
 		E = Integer.parseInt(br.readLine());
-		visit = new boolean[N+1];
 
-		graph = new ArrayList<ArrayList<Node>>();
-		for (int i = 0; i <= N; i++) {
-			graph.add(new ArrayList<Node>());
+		// 초기화
+		lists = new List[N+1];
+		for (int i = 1; i <= N; i++) {
+			lists[i] = new ArrayList<Node>();
 		}
-		for (int i = 0; i < E; i++) {
+
+		dist = new int[N+1];
+		for (int i = 1; i <= N ; i++) {
+			dist[i] = Integer.MAX_VALUE;
+		}
+		//
+
+		// 입력
+		for (int i = 1; i <= E ; i++) {
 			st = new StringTokenizer(br.readLine());
 			int s = Integer.parseInt(st.nextToken());
 			int e = Integer.parseInt(st.nextToken());
 			int c = Integer.parseInt(st.nextToken());
 
-			graph.get(s).add(new Node(e, c));
-			//graph.get(e).add(new Node(s, c));
+			lists[s].add(new Node(e,c));
 		}
 
 		st = new StringTokenizer(br.readLine());
-		mustA = Integer.parseInt(st.nextToken());
-		mustB = Integer.parseInt(st.nextToken());
+		start = Integer.parseInt(st.nextToken());
+		end = Integer.parseInt(st.nextToken());
+		//
 
-		//System.out.println(mustA + " " + mustB);
-		dist = new int[N + 1]; // 최소 비용을 저장할 배열
-		for (int i = 0; i < N + 1; i++) {
-			dist[i] = Integer.MAX_VALUE;
-		}
-
-		min = dijkstra(mustA, mustB);
-		//min += dist[mustA];
-
-		System.out.println(min);
+		// dijstra
+		System.out.println(dijstra(start, end));
 	}
 
-	public static int dijkstra(int start, int end){
-		Arrays.fill(dist, Integer.MAX_VALUE);
-		Arrays.fill(visit, false);
-
-		PriorityQueue<Node> q = new PriorityQueue<Node>(Comparator.comparingInt(o -> o.cost));
-		q.offer(new Node(start, 0));
+	public static int dijstra(int start, int end){
+		PriorityQueue<Node> q = new PriorityQueue<Node>((o1,o2) -> o1.cost - o2.cost);
+		q.offer(new Node(start,0));
 		dist[start] = 0;
 
 		while (!q.isEmpty()){
 			Node cur = q.poll();
 
-			// if(!visit[cur.idx]) {
-			// 	visit[cur.idx] = true;
-			if (dist[cur.idx] < cur.cost) {
+			if(dist[cur.idx] < cur.cost){
 				continue;
 			}
 
-			for (int i = 0; i < graph.get(cur.idx).size(); i++) {
-				Node nxtNode = graph.get(cur.idx).get(i);
-				if (dist[nxtNode.idx] > cur.cost + nxtNode.cost) {
-					dist[nxtNode.idx] = cur.cost + nxtNode.cost;
-					q.offer(new Node(nxtNode.idx, dist[nxtNode.idx]));
-					//System.out.println(nxtNode.idx+" "+dist[nxtNode.idx]);
+			for (Node next:	lists[cur.idx]) {
+				if(dist[next.idx] > cur.cost + next.cost){
+					dist[next.idx] = cur.cost + next.cost;
+					q.offer(new Node(next.idx, dist[next.idx]));
 				}
 			}
-			//}
 		}
 
 		return dist[end];
 	}
+
 }
