@@ -78,59 +78,5 @@ public class Main {
                 }
             }
         }
-        for (int i = 1; i <= 25; i++) {
-            for (int j = 0; j < n; j++) {
-                for (int k = 0; k < n; k++) {
-                    if (map[j][k]==i){
-                        map[j][k]=0;
-
-                        // x
-                        int l = 0;
-                        for (l = 0; l < n; l++) {
-                            if (map[j][l]!=0)
-                                break;
-                        }
-                        if (!x[j] && l==n){
-                            cnt++;
-                            x[j] = true;
-                        }
-                        // y
-                        for (l = 0; l < n; l++) {
-                            if (map[l][k]!=0)
-                                break;
-                        }
-                        if (!y[k] && l==n){
-                            cnt++;
-                            y[k] = true;
-                        }
-                        // 대각선
-                        for (l = 0; l < n; l++) {
-                            if (map[l][l]!=0){
-                                break;
-                            }
-                        }
-                        if (!c[0] && l==n){
-                            cnt++;
-                            c[0] = true;
-                        }
-
-                        for (l = 0; l < n; l++) {
-                            if (map[l][(n-1)-l]!=0){
-                                break;
-                            }
-                        }
-                        if (!c[1] && l==n){
-                            cnt++;
-                            c[1] = true;
-                        }
-
-                        if (cnt>=3){
-                            System.out.println(i);
-                            System.exit(0);
-                        }
-                    }
-                }
-            }
-        }
     }
 }
