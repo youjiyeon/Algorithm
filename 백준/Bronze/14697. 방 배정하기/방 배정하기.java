@@ -10,9 +10,9 @@ public class Main {
         int c = Integer.parseInt(st.nextToken());
         int n = Integer.parseInt(st.nextToken());
 
-        for (int i = 1; i <= 50/a; i++) {
-            for (int j = 1; j <= 50/b; j++) {
-                for (int k = 1; k <= 50/c; k++) {
+        for (int i = 0; i <= n/a; i++) {
+            for (int j = 0; j <= n/b; j++) {
+                for (int k = 0; k <= n/c; k++) {
                     if ((i*a)+(j*b)+(k*c) == n){
                         System.out.println(1);
                         System.exit(0);
