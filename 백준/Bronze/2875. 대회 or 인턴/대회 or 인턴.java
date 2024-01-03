@@ -1,19 +1,24 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int k = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+        int max = Integer.MIN_VALUE;
 
-        int count =0;
+        // 2*여 + 1*남
+        // -k
+        for (int i = 0; i <= k; i++) {
+            int tn = n-i;
+            int tm = m-(k-i);
 
-        while(n>=2 && m>=1 && m+n >=3+k){
-            n = n-2;
-            m= m-1;
-            count++;
+            int nn = tn/2;
+            max = Math.max(max, Math.min(nn, tm));
         }
-        System.out.println(count);
+        System.out.println(max);
     }
 }
