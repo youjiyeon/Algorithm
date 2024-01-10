@@ -23,13 +23,13 @@ public class Main {
                 for (int j = 0; j < n; j++) {
                     if (arr[j] == i) continue;
                     if (cur != arr[j]) {
+                        cur = arr[j];
                         cnt = 1;
                     }
                     else {
                         cnt++;
                     }
                     ans = Math.max(ans, cnt);
-                    cur = arr[j];
                 }
             }
         }
