@@ -27,11 +27,13 @@ public class Main {
     private static boolean palindrome(int n) {
         String str = String.valueOf(n);
         int N = str.length();
+				int tmp = N/2;
+
         if (N==1)
             return true;
 
-        for (int i = 0; i < N/2; i++) {
-            if (str.charAt(i) != str.charAt(N-i-1))
+        for (int i = 0; i < tmp; i++) {
+            if (str.charAt(i) != str.charAt(N-1-i))
                 return false;
         }
 
