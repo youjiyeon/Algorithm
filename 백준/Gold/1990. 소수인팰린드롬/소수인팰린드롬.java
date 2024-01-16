@@ -39,9 +39,6 @@ public class Main {
     }
 
     private static void initPrime() {
-        prime[0] = true;
-        prime[1] = true;
-
         for (int i = 2; i*i <= 100000000; i++) {
             if (prime[i]) continue;
             for (int j = i*i; j <= 100000000; j+=i) {
