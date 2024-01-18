@@ -1,49 +1,42 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static int N;
-    public static long X;
-    public static List<Integer> list = new ArrayList<>();
+    public static int n, x;
+    public static int[] arr;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            list.add(Integer.parseInt(st.nextToken()));
-        }
-        X = Long.parseLong(br.readLine());
+        n = Integer.parseInt(br.readLine());
 
-        Collections.sort(list);
-        //System.out.println(list);
-        // 투 포인터
-        System.out.println(twoPoint());
+        arr = new int[n];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+        x = Integer.parseInt(br.readLine());
+        System.out.println(two());
     }
 
-    private static int twoPoint() {
-        int left = 0;
-        int right = N-1;
-        long sum = 0;
+    public static int two(){
         int cnt = 0;
+        Arrays.sort(arr);
+        int s = 0;
+        int e = n-1;
 
-        while (left<right){
-            //System.out.println(list.get(left) +" "+ list.get(right));
-
-            sum = list.get(left) + list.get(right);
-            if (sum == X){
+        while (s<e){
+            if (arr[s]+arr[e]==x){
                 cnt++;
+                s++;
+                e--;
             }
-
-            if (sum<X){
-                left++;
+            else if(arr[s]+arr[e]>x){
+                e--;
             }
-            else right--;
+            else {
+                s++;
+            }
         }
+
         return cnt;
     }
 }
