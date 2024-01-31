@@ -5,7 +5,7 @@ class Main {
     public static void main(String[] args) throws IOException {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        TreeMap<Long, Long> map = new TreeMap<>();
+        Map<Long, Long> map = new LinkedHashMap<>();
         map.put(0L, 1L);
         long cnt = 0;
 
