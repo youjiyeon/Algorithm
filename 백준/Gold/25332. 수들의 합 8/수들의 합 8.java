@@ -5,8 +5,8 @@ class Main {
     public static void main(String[] args) throws IOException {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        TreeMap<Long, Integer> map = new TreeMap<>();
-        map.put(0L, 1);
+        TreeMap<Long, Long> map = new TreeMap<>();
+        map.put(0L, 1L);
         long cnt = 0;
 
         int N = Integer.parseInt(br.readLine());
@@ -24,8 +24,8 @@ class Main {
         long tmp = 0L;
         for (int i = 1; i <= N; i++) {
             tmp = A[i]-B[i];
-            cnt+=map.getOrDefault(tmp, 0);
-            map.put(tmp, map.getOrDefault(tmp, 0)+1);
+            cnt+=map.getOrDefault(tmp, 0L);
+            map.put(tmp, map.getOrDefault(tmp, 0L)+1);
         }
 
         bw.write(cnt+"\n");
