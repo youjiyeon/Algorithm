@@ -1,48 +1,51 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
-public class Main {
-    public static int N;
-    public static int[] arr;
+class Main {
+    static int n, target;
+    static int[] arr;
     public static void main(String[] args) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        StringBuilder sb = new StringBuilder();
 
-        arr = new int[N];
+        n = Integer.parseInt(br.readLine());
+        arr = new int[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
-        // 정렬
         Arrays.sort(arr);
 
-        int T = Integer.parseInt(br.readLine());
+        int m = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < T; i++) {
-            sb.append(two(Integer.parseInt(st.nextToken()))+" ");
+        for (int i = 0; i < m; i++) {
+            target = Integer.parseInt(st.nextToken());
+            bw.write(two()+" ");
         }
-        System.out.println(sb);
+
+        bw.flush();
+        bw.close();
     }
 
-    public static int two(int v){
-        int r = 0;
-        int l = N-1;
-        int mid;
+    private static int two() {
+        int s = 0;
+        int e = n-1;
+        int mid = (s+e)/2;
 
-        while (r<=l){
-            mid = (r+l)/2;
-            if(arr[mid]==v){
+        while (s<=e){
+            mid = (s+e)/2;
+            if (arr[mid]==target) {
                 return 1;
             }
-            else if (arr[mid]<v) {
-                r = mid+1;
+            // 타겟보다 작다면
+            // 앞값 이동
+            else if (arr[mid]<target) {
+                s = mid+1;
             }
-            else if (arr[mid]>v) {
-                l = mid-1;
+            // 타겟보다 크면
+            // 끝값 이동
+            else {
+                e = mid-1;
             }
         }
         return 0;
