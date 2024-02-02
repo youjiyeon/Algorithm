@@ -1,66 +1,65 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
-public class Main {
-    public static int N;
-    public static int[] num;
+class Main {
+    static int n;
+    static int[] arr;
     public static void main(String[] args) throws IOException {
-        StringBuilder sb = new StringBuilder();
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        num = new int[N];
+
+        n = Integer.parseInt(br.readLine());
+        arr = new int[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            num[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(num);
+        Arrays.sort(arr);
 
-        int T = Integer.parseInt(br.readLine());
+        int m = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < T; i++) {
+        for (int i = 0; i < m; i++) {
             int target = Integer.parseInt(st.nextToken());
-            sb.append(down(target)-up(target)+" ");
+            bw.write((up(target)-low(target))+" ");
         }
-        System.out.println(sb);
+
+        bw.flush();
+        bw.close();
     }
 
+    // 맨 뒤의 위치(오른쪽 끝)
     private static int up(int target) {
-        int l = 0;
-        int r = N;
+        int s = 0;
+        int e = n;
         int mid = 0;
 
-        while (l<r){
-            mid = (l+r)/2;
-
-            if (num[mid]>=target){
-                r = mid;
+        while (s<e){
+            mid = (s+e)/2;
+            if (arr[mid]>target) {
+                e = mid;
             }
-            else if (num[mid]<target) {
-                l = mid+1;
+            else {
+                s = mid+1;
             }
         }
-
-        return l;
+        return e;
     }
 
-    private static int down(int target) {
-        int l = 0;
-        int r = N;
+    // 맨 앞의 위치(왼쪽 끝)
+    private static int low(int target) {
+        int s = 0;
+        int e = n;
         int mid = 0;
 
-        while (l<r){
-            mid = (l+r)/2;
-
-            if (num[mid]>target){
-                r = mid;
+        while (s<e){
+            mid = (s+e)/2;
+            if (arr[mid]>=target) {
+                e = mid;
             }
-            else if (num[mid]<=target) {
-                l = mid+1;
+            else {
+                s = mid+1;
             }
         }
-
-        return r;
+        return s;
     }
 }
