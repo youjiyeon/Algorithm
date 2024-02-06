@@ -1,47 +1,35 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StreamTokenizer;
+// 1 2 4 8 9
+//
+
+import java.io.*;
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class Main {
-    public static long[] arr;
-    public static int m1 = 0, m2 = 0, N;
-    public static long min;
+    static int n, x1, x2, ans = Integer.MAX_VALUE;
     public static void main(String[] args) throws IOException {
-        // 일단 조합
-        // 알카리 + 산성
-        // 각각 하나씩
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        arr = new long[N];
-        min = Long.MAX_VALUE;
+        n = Integer.parseInt(br.readLine());
 
+        int[] arr = new int[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            arr[i] = Long.parseLong(st.nextToken());
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-
-        // 투 포인터
-        twoPointer();
-        System.out.println(arr[m1]+" "+arr[m2]);
-    }
-
-    private static void twoPointer() {
-        int left = 0;
-        int right = N - 1;
-
-        while (left<right){
-            long sum = arr[left]+arr[right];
-            if(min>Math.abs(sum)){
-                min = Math.abs(sum);
-                m1 = left; m2 = right;
+        Arrays.sort(arr);
+        int s = 0;
+        int e = n-1;
+        int tmp = 0;
+        while (s<e){
+            tmp = arr[s]+arr[e];
+            if (Math.abs(tmp)<ans){
+                ans=Math.abs(tmp);
+                x1 = arr[s];
+                x2 = arr[e];
             }
-
-            if(sum>=0) right--;
-            else left++;
+            if (tmp>=0) e--;
+            else s++;
         }
-
+        System.out.println(x1+" "+x2);
     }
 }
+
