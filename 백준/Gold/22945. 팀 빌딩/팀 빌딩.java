@@ -19,12 +19,8 @@ public class Main {
         int tmp = 0;
         while (s<e){
             tmp = (e-s-1)*Math.min(arr[s],arr[e]);
-            if (max<tmp){
-                max = tmp;
-            }
-            if (arr[s]<arr[e]){
-                s++;
-            }
+            if (max<tmp) max = tmp;
+            if (arr[s]<arr[e]) s++;
             else e--;
         }
         System.out.println(max);
