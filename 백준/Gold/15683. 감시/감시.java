@@ -2,133 +2,94 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    public static class Node{
+        int x;
+        int y;
+        int v;
+        public Node(int x, int y, int v){
+            this.x = x;
+            this.y = y;
+            this.v = v;
+        }
+    }
+    public static int n, m, size, ans = Integer.MAX_VALUE;
+    public static int[] pick;
+    public static int[][] map, copy, w = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };;
+    public static int[][][] way = { {}, { { 0 }, { 1 }, { 2 }, { 3 } }, { { 0, 1 }, { 2, 3 } },
+            { { 0, 2 }, { 0, 3 }, { 1, 3 }, { 1, 2 } }, { { 0, 1, 2 }, { 0, 2, 3 }, { 0, 1, 3 }, { 1, 2, 3 } },
+            { { 0, 1, 2, 3 } } };
+    public static List<Node> cctv = new ArrayList<>();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
-	static class Node {
+        copy = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < m; j++) {
+                int tmp = Integer.parseInt(st.nextToken());
+                copy[i][j] = tmp;
+                if (tmp>=1 && tmp<=5){
+                    cctv.add(new Node(i,j,tmp));
+                }
+            }
+        }
 
-		int x;
-		int y;
-		int val;
+        size = cctv.size();
+        pick = new int[size];
 
-		public Node(int x, int y, int val) {
-			super();
-			this.x = x;
-			this.y = y;
-			this.val = val;
-		}
-	}
+        perm(0);
+        System.out.println(ans);
+    }
 
-	static int N, M, result;
-	static int[][] map, origin;
-	static List<Node> cctvs = new ArrayList<>();
+    public static void perm(int cnt){
+        if (cnt==size){
+            map = new int[n][m];
+            for (int i = 0; i < n; i++) {
+                map[i] = copy[i].clone();
+            }
 
-	static int[][][] cctv = { {}, { { 0 }, { 1 }, { 2 }, { 3 } }, { { 0, 1 }, { 2, 3 } },
-			{ { 0, 2 }, { 0, 3 }, { 1, 3 }, { 1, 2 } }, { { 0, 1, 2 }, { 0, 2, 3 }, { 0, 1, 3 }, { 1, 2, 3 } },
-			{ { 0, 1, 2, 3 } } };
-	// 우 좌 상 하
-	static int[][] way = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
-	static int[] pick;
+            play();
 
-	public static void main(String[] args) throws IOException {
+            int sum = 0;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (map[i][j]==0)
+                        sum++;
+                }
+            }
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+            ans = Math.min(ans, sum);
+            return;
+        }
 
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
+        // 각 cctv의 방향 고르기
+        for (int i = 0; i < way[cctv.get(cnt).v].length; i++) {
+            pick[cnt] = i;
+            perm(cnt+1);
+        }
+    }
 
-		origin = new int[N][M];
-		// input
-		for (int i = 0; i < N; i++) {
-			st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < M; j++) {
-				origin[i][j] = Integer.parseInt(st.nextToken());
-				if (origin[i][j] >= 1 && origin[i][j] <= 5) {
-					cctvs.add(new Node(i, j, origin[i][j]));
-				}
-			}
-		}
-		// ---
+    public static void play(){
+        for (int i = 0; i < size; i++) {
+            Node cur = cctv.get(i);
 
-		pick = new int[cctvs.size()];
-		result = Integer.MAX_VALUE;
-		perm(0);
-		System.out.println(result);
-	}
+            int v = cur.v;
+            for (int j:way[v][pick[i]]) {
+                int x = cur.x;
+                int y = cur.y;
 
-	private static void perm(int cnt) {
+                while (true){
+                    x+=w[j][0];
+                    y+=w[j][1];
 
-		if (cnt == cctvs.size()) {
-			// 배열 초기화
-			arrayCopy();
-			// cctv 가시화
-			looking();
-
-			// 사각지대 cnt
-			int curBlindCnt = getCurBlindCnt();
-
-			result = Math.min(result, curBlindCnt);
-
-			return;
-		}
-
-		for (int i = 0; i < cctv[cctvs.get(cnt).val].length; i++) {
-			pick[cnt] = i;
-			perm(cnt + 1);
-		}
-	}
-
-	private static void looking() {
-
-		// 감시 카메라 작동
-		for (int i = 0; i < cctvs.size(); i++) {
-			Node ctv = cctvs.get(i); // cctv 정보 가져오기
-
-			// dirCase[ cctv번호 ][ 선택한 방향 ]
-			// 2번 cctv에 0번 방향이라면 상, 하 델타 인덱스를 뽑아냄
-			for (int dir : cctv[ctv.val][pick[i]]) {
-
-				// cctv의 좌표값 받아오기
-				int r = ctv.x;
-				int c = ctv.y;
-
-				// 해당 방향으로 한 칸씩 이동하며 감시영역 체크
-				while (true) {
-					// 한 칸 이동
-					r += way[dir][0];
-					c += way[dir][1];
-
-					// 경계를 벗어나거나 벽(6)인 경우 해당 방향의 검사 마침
-					if (r < 0 || r >= N || c < 0 || c >= M || map[r][c] == 6)
-						break;
-
-					// 위의 조건을 만족하지 않는다면 감시 영역 체크(-1로 체크)
-					map[r][c] = -1;
-				}
-			}
-
-		}
-	}
-
-	private static int getCurBlindCnt() {
-
-		int cnt = 0;
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				if (map[i][j] == 0)
-					cnt++;
-			}
-		}
-		return cnt;
-	}
-
-	// 감시 카메라
-	private static void arrayCopy() {
-
-		map = new int[N][M];
-		for (int i = 0; i < N; i++) {
-			map[i] = origin[i].clone();
-		}
-
-	}
-
+                    if (x<0 || x>=n || y<0 || y>=m || map[x][y]==6)
+                        break;
+                    map[x][y] = -1;
+                }
+            }
+        }
+    }
 }
