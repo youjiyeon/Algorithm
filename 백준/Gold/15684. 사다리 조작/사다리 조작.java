@@ -3,7 +3,6 @@ import java.util.*;
 
 public class Main {
     static int N, M, H, min = 4;
-    // a 세로줄에서 b 가로줄
     static int[][] map;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,7 +27,7 @@ public class Main {
             }
 
             dfs(1, 0);
-            System.out.println(min<4 ? min : -1);
+            System.out.println(min<=3 ? min : -1);
         }
     }
 
@@ -36,7 +35,7 @@ public class Main {
         if (min<=cnt)
             return;
         else {
-            if (play()){
+            if (isI()){
                 min = cnt;
                 return;
             }
@@ -54,7 +53,7 @@ public class Main {
         }
     }
 
-    private static boolean play(){
+    private static boolean isI(){
         for (int i = 1; i <= N; i++) {
             int x = 1; int y = i;
             for (int j = 0; j < H; j++) {
