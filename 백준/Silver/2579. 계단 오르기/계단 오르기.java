@@ -1,35 +1,29 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static Integer[] dp;
-    public static int[] map;
+    public static int n;
+    public static int[] stairs, dp;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        dp = new Integer[n+1];
-        map = new int[n+1];
+        n = Integer.parseInt(br.readLine());
 
+        dp = new int[n+1];
+        stairs = new int[n+1];
         for (int i = 1; i <= n; i++) {
-            map[i] = Integer.parseInt(br.readLine());
+            stairs[i] = Integer.parseInt(br.readLine());
         }
 
-        dp[0] = map[0];
-        dp[1] = map[1];
+        dp[1] = stairs[1];
 
-        if(n>=2){
-            dp[2] = map[1] + map[2];
+        if (n >= 2) {
+            dp[2] = stairs[1] + stairs[2];
         }
 
-        System.out.println(find(n));
-        
-    }
-
-    public static int find(int n){
-        if(dp[n] == null){
-            dp[n] = Math.max(find(n-2),find(n-3)+map[n-1])+map[n];
+        for (int i = 3; i <= n; i++) {
+            dp[i] = Math.max(dp[i - 2], dp[i - 3] + stairs[i - 1]) + stairs[i];
         }
-        return dp[n];
+
+        System.out.println(dp[n]);
     }
 }
