@@ -2,38 +2,32 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static int n, k;
-    public static Integer[][] bag, dp;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        k = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
 
-        bag = new Integer[n][2];
-        dp = new Integer[n][k+1];
-        for (int i = 0; i < n; i++) {
+        int[][] dp = new int[n+1][k+1];
+        int[][] arr = new int[n+1][2];
+        for (int i = 1; i <= n; i++) {
             st = new StringTokenizer(br.readLine());
-            bag[i][0] = Integer.parseInt(st.nextToken());
-            bag[i][1] = Integer.parseInt(st.nextToken());
+            arr[i][0] = Integer.parseInt(st.nextToken());
+            arr[i][1] = Integer.parseInt(st.nextToken());
         }
 
-        System.out.println(dp(n-1, k));
-    }
-
-    public static int dp(int idx, int k) {
-        if (idx<0) {
-            return 0;
-        }
-
-        if (dp[idx][k] == null) {
-            if (bag[idx][0] > k) {
-                dp[idx][k] = dp(idx-1, k);
-            }
-            else {
-                dp[idx][k] = Math.max(dp(idx-1, k), dp(idx-1, k-bag[idx][0])+bag[idx][1]);
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= k; j++) {
+                // n+1로 array outbound 해결
+                if (arr[i][0] > j) {
+                    dp[i][j] = dp[i-1][j];
+                }
+                else {
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-arr[i][0]]+arr[i][1]);
+                }
             }
         }
-        return dp[idx][k];
+
+        System.out.println(dp[n][k]);
     }
 }
