@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -15,24 +13,21 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
             dp[i] = 1;
         }
-
-        dp[0] = 1;
-        int max = dp[0];
+        
+        int ans = dp[0];
 
         for (int i = 1; i < N; i++) {
-            // 증가하는 수라면
             for (int j = 0; j < i; j++) {
-                if(arr[j]<arr[i]){
-                    // 길이를 늘려준다
-                    dp[i] = Math.max(dp[j]+1,dp[i]);
+                if(arr[j] < arr[i]){
+                    dp[i] = Math.max(dp[j]+1, dp[i]);
                 }
             }
         }
 
         for (int i = 0; i < N; i++) {
-            max = Math.max(max, dp[i]);
+            ans = Math.max(ans, dp[i]);
         }
 
-        System.out.println(max);
+        System.out.println(ans);
     }
 }
