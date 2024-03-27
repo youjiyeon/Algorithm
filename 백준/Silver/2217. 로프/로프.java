@@ -2,21 +2,21 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    public static int ans = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        Integer[] map = new Integer[n];
+        int[] rope = new int[n];
+
         for (int i = 0; i < n; i++) {
-            map[i] = Integer.parseInt(br.readLine());
+            rope[i] = Integer.parseInt(br.readLine());
+        }
+        Arrays.sort(rope);
+
+        for (int i = 0; i < n; i++) {
+            ans = Math.max(ans, rope[i]*(n-i));
         }
 
-        Arrays.sort(map, Collections.reverseOrder());
-
-        int max = 0;
-        for (int i = 0; i < n; i++) {
-            max = Math.max(max, map[i]*(i+1));
-        }
-
-        System.out.println(max);
+        System.out.println(ans);
     }
 }
