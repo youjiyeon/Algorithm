@@ -16,19 +16,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         int T = Integer.parseInt(br.readLine());
-        Node[] students = new Node[T];
-
-        for (int i = 0; i < T; i++) {
-            st = new StringTokenizer(br.readLine());
-            String str = st.nextToken();
-            int d = Integer.parseInt(st.nextToken());
-            int m = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
-
-            students[i] = new Node(str, d, m, y);
-        }
-
-        Arrays.sort(students, new Comparator<Node>() {
+        PriorityQueue<Node> students = new PriorityQueue<>(new Comparator<Node>() {
             @Override
             public int compare(Node o1, Node o2) {
                 if (o1.year == o2.year) {
@@ -43,7 +31,20 @@ public class Main {
             }
         });
 
-        System.out.println(students[0].name);
-        System.out.println(students[T-1].name);
+        for (int i = 0; i < T; i++) {
+            st = new StringTokenizer(br.readLine());
+            String str = st.nextToken();
+            int d = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+
+            students.offer(new Node(str, d, m, y));
+        }
+
+        System.out.println(students.peek().name);
+        for (int i = 0; i < T-1; i++) {
+            students.poll();
+        }
+        System.out.println(students.peek().name);
     }
 }
