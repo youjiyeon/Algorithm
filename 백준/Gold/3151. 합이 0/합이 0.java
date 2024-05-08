@@ -2,57 +2,67 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static int n;
-    public static long ans = 0;
-    public static int[] students;
+    static int N;
+    static int[] arr;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
+        StringTokenizer st;
 
-        students = new int[n];
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            students[i] = Integer.parseInt(st.nextToken());
-        }
+        N = Integer.parseInt(br.readLine());
+        long ans = 0;
 
-        Arrays.sort(students);
+        arr = new int[N];
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N ; i ++)
+            arr[i] = Integer.parseInt(st.nextToken());
 
-        for (int i = 0; i < n-1; i++) {
-            for (int j = i+1; j < n; j++) {
-                // 이분탐색
-                int tmp = -1 * (students[i] + students[j]);
+        // 오름차순 정렬
+        Arrays.sort(arr);
 
-                int ul = j+1;
-                int ur = n;
-                int um  = (ul+ur)/2;
+        // 2개 먼저 뽑기
+        for(int i = 0 ; i < N-1 ; i ++){
+            for(int j = i+1 ; j < N ; j ++){
+                int lower = binarySearchLow(-1*(arr[i] + arr[j]),  j);
+                int upper = binarySearchUp(-1*(arr[i] + arr[j]), j);
 
-                while (ul<ur) {
-                    um  = (ul+ur)/2;
-                    if (tmp >= students[um]) {
-                        ul = um+1;
-                    }
-                    else {
-                        ur = um;
-                    }
-                }
-
-                int ll = j+1;
-                int lr = n;
-                int lm  = (ll+lr)/2;
-
-                while (ll<lr) {
-                    lm  = (ll+lr)/2;
-                    if (tmp > students[lm]) {
-                        ll = lm+1;
-                    }
-                    else {
-                        lr = lm;
-                    }
-                }
-
-                ans += ul - ll;
+                ans += upper - lower;
             }
         }
-        System.out.println(ans);
+
+        System.out.print(ans);
+    }
+
+    private static int binarySearchUp(int target, int s) {
+        s++;
+        int e = N;
+        int m = 0;
+
+        while(e > s){
+            m = (s + e) / 2;
+
+            if(target >= arr[m]){
+                s = m+1;
+            }
+            else e = m;
+        }
+
+        return s;
+    }
+
+    private static int binarySearchLow(int target, int s) {
+        s++;
+        int e = N;
+        int m = 0;
+
+        while(e > s){
+            m = (s + e) / 2;
+
+            if(target > arr[m]){
+                s = m+1;
+            }
+            else e = m;
+        }
+
+        return s;
     }
 }
