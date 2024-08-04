@@ -1,83 +1,74 @@
+import java.io.*;
 import java.util.*;
- 
+
 public class Main {
- 
-    static int n, r; 
-    static int pillar, max, gigaNode;
-    static boolean[] visited;
-    static ArrayList<Node>[] nodeList;
- 
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
- 
-        n = scan.nextInt();
-        r = scan.nextInt();
- 
-        nodeList = new ArrayList[n + 1];
-        for(int i = 1; i < n + 1; i++) {
-            nodeList[i] = new ArrayList<>();
+    static class Node {
+        int node;
+        int dis;
+        public Node(int node, int dis) {
+            this.node = node;
+            this.dis = dis;
         }
- 
-        for(int i = 0; i < n - 1; i++) {
-            int n1 = scan.nextInt();
-            int n2 = scan.nextInt();
-            int cost = scan.nextInt();
-            nodeList[n1].add(new Node(n2, cost));
-            nodeList[n2].add(new Node(n1, cost));
-        }
- 
-        pillar = 0;
-        max = 0;
-        if(n != 1) {
-            visited = new boolean[n + 1];
-            findPillarDFS(r, 0); 
-            findMaxDFS(gigaNode, 0);
-        }
- 
-        System.out.println(pillar + " " + max);
     }
- 
-    public static void findPillarDFS(int n, int total) {
-        if (nodeList[n].size() > 2 || (nodeList[n].size() == 1 && n != r) || (nodeList[n].size() == 2 && n == r)) {
-            pillar = total;
-            gigaNode = n;
+    static int n, r, rLen = 0, max = 0, giga;
+    static List<Node>[] list;
+    static boolean[] visit;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        r = Integer.parseInt(st.nextToken());
+
+        list = new List[n+1];
+        for (int i = 1; i <= n; i++) {
+            list[i] = new ArrayList<>();
+        }
+        for (int i = 0; i < n-1; i++) {
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            int d = Integer.parseInt(st.nextToken());
+
+            list[a].add(new Node(b, d));
+            list[b].add(new Node(a, d));
+        }
+
+       if (n != 1) {
+           visit = new boolean[n+1];
+           pillarDfs(r, 0);
+           dfs(giga, 0);
+       }
+
+        System.out.println(rLen+" "+max);
+    }
+
+    static void pillarDfs(int node, int sum) {
+        if (list[node].size() > 2 || (list[node].size() == 1 && node != r) || (list[node].size() == 2 && node == r)) {
+            rLen = sum;
+            giga = node;
             return;
         }
- 
-        for (int i = 0; i < nodeList[n].size(); i++) {
-            Node next = nodeList[n].get(i);
-            if (!visited[next.num]) {
-                visited[next.num] = true;
-                findPillarDFS(next.num, total + next.cost);
+
+        for (Node next : list[node]) {
+            if (!visit[next.node]) {
+                visit[next.node] = true;
+                pillarDfs(next.node, sum+next.dis);
             }
         }
     }
- 
-    public static void findMaxDFS(int n, int total) {
-        if (nodeList[n].size() == 1) { // 리프 노드라면
-            max = Math.max(max, total);
+
+    static void dfs(int node, int sum) {
+        if (list[node].size() == 1) {
+            max = Math.max(max, sum);
             return;
         }
- 
-        for (int i = 0; i < nodeList[n].size(); i++) {
-            Node next = nodeList[n].get(i);
-            if (!visited[next.num]) {
-                visited[n] = true;
-                total += next.cost;
-                findMaxDFS(next.num, total);
-                total -= next.cost;
-                visited[n] = false;
+
+        for (Node next : list[node]) {
+            if (!visit[next.node]) {
+                visit[node] = true;
+                dfs(next.node, sum+next.dis);
+                visit[node] = false;
             }
-        }
-    }
- 
-    public static class Node {
-        int num;
-        int cost;
- 
-        public Node(int num, int cost) {
-            this.num = num;
-            this.cost = cost;
         }
     }
 }
