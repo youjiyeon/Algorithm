@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -42,9 +40,11 @@ public class Main {
             mid = (l+r)/2;
             if (list.get(mid)<target){
                 l = mid+1;
-            } else if (list.get(mid)>target) {
+            }
+            else if (list.get(mid)>target) {
                 r = mid-1;
-            } else {
+            }
+            else {
                 sb.append(mid+" ");
                 return;
             }
