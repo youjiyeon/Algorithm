@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -17,7 +15,7 @@ public class Main {
         int T = Integer.parseInt(br.readLine());
         for (int t = 0; t < T; t++) {
             int n = Integer.parseInt(br.readLine());
-            if(dp[n][0]==0 && dp[n][1]==0){
+            if (dp[n][0]==0 && dp[n][1]==0) {
                 for (int i = 2; i <= n; i++) {
                     if(dp[i][0]!=0 || dp[i][1]!=0) continue;
                     dp[i][0] = dp[i-1][0]+dp[i-2][0];
@@ -26,7 +24,6 @@ public class Main {
             }
             sb.append(dp[n][0]+" "+dp[n][1]+"\n");
         }
-
         System.out.println(sb);
     }
 }
