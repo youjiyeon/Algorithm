@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -29,20 +27,20 @@ public class Main {
         int pr = r.size()-1;
         long cnt = 0;
 
-        while (pl<l.size() && pr>=0){
+        while (pl<l.size() && pr>=0) {
             long sum = l.get(pl) + r.get(pr);
 
-            if (sum==S){
+            if (sum == S) {
                 long a = l.get(pl);
                 long tempA = 0;
-                while (pl<l.size() && l.get(pl)==a){
+                while (pl<l.size() && l.get(pl)==a) {
                     pl++;
                     tempA++;
                 }
 
                 long b = r.get(pr);
                 long tempB = 0;
-                while (pr>=0 && r.get(pr)==b){
+                while (pr>=0 && r.get(pr)==b) {
                     pr--;
                     tempB++;
                 }
@@ -57,14 +55,13 @@ public class Main {
             }
         }
 
-        if (S==0)
+        if (S == 0)
             cnt--;
         System.out.println(cnt);
     }
 
     static void powerSet(int idx, int end, long val, List<Long> list) {
-        if(idx == end)
-        {
+        if (idx == end) {
             list.add(val);
             return;
         }
