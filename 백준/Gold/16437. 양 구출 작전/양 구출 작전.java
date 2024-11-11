@@ -1,48 +1,63 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static List<Integer>[] list;
-    public static long[] result;
-    public static void main(String[] args) throws IOException {
+    static int n;
+    static boolean[] isSheep;
+    static long[] val;
+    static List<Integer>[] map;
+
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        list = new List[N+1];
-        result = new long[N+1];
-        for (int i = 1; i <= N; i++) {
-            list[i] = new ArrayList<>();
+        StringTokenizer st;
+
+        n = Integer.parseInt(br.readLine());
+
+        isSheep = new boolean[n+1];
+        val = new long[n+1];
+
+        map = new ArrayList[n+1];
+        for (int i = 1; i <= n; i++) {
+            map[i] = new ArrayList<>();
         }
 
-        for (int i = 2; i <= N; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 2; i <= n; i++) {
+            st = new StringTokenizer(br.readLine());
             char c = st.nextToken().charAt(0);
-            long n = Integer.parseInt(st.nextToken());
-            int t = Integer.parseInt(st.nextToken());
+            long num = Long.parseLong(st.nextToken());
+            int start = Integer.parseInt(st.nextToken());
 
-            list[t].add(i);
-            if (c=='W'){
-                n *= -1;
+            // 양인지 체크
+            if (c == 'S') {
+                isSheep[i] = true;
             }
-            result[i] = n;
+
+            val[i] = num;
+            map[start].add(i);
         }
 
-        dfs(1,-1);
-        System.out.println(result[1]);
+        System.out.println(dfs(1));
     }
 
-    public static void dfs(int idx, int pa){
-        for (int nxt: list[idx]) {
-            dfs(nxt, idx);
+    static long dfs(int idx) {
+        long num = 0;
+
+        for (int next : map[idx]) {
+            num += dfs(next);
         }
 
-        if (pa != -1){
-            if (result[idx]>0){
-                result[pa] += result[idx];
-            }
+        // 도착지 도달
+        if (idx == 1) {
+            return num;
         }
+
+        if (isSheep[idx]) {
+            num += val[idx];
+        }
+        else {
+            num = num - val[idx] < 0 ? 0 : num - val[idx];
+        }
+
+        return num;
     }
 }
