@@ -2,32 +2,31 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int val = Integer.parseInt(st.nextToken());
-        int P = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int new_score = Integer.parseInt(st.nextToken());
+        int p = Integer.parseInt(st.nextToken());
 
-        if (N==0) {
+        if (n==0) {
             System.out.println(1);
             System.exit(0);
         }
-        
-        Integer[] arr = new Integer[N];
+
+        int[] score = new int[n];
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < n; i++) {
+            score[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(arr, Collections.reverseOrder());
-        if (N==P && val<=arr[N-1]) {
+        if (n==p && new_score<=score[n-1]) {
             System.out.println(-1);
         }
         else {
             int rank = 1;
-            for (int i = 0; i < N; i++) {
-                if (val<arr[i]) rank++;
+            for (int i = 0; i < n; i++) {
+                if (new_score<score[i]) rank++;
                 else break;
             }
 
