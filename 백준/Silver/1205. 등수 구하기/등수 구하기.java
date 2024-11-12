@@ -20,7 +20,7 @@ public class Main {
             score[i] = Integer.parseInt(st.nextToken());
         }
 
-        if (n==p && new_score<=score[n-1]) {
+        if ((n==p || n>p) && new_score<=score[p-1]) {
             System.out.println(-1);
         }
         else {
