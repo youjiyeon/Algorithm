@@ -72,13 +72,7 @@ class Main {
                     dfs(list.get(start).door.get(i), money);
                 }
             }
-            list.get(start).v = false;
-        }
-        else {
-            if (list.get(start).type == 'T') {
-                money += list.get(start).value;
-            }
-            return;
+            //list.get(start).v = false;
         }
     }
 }
