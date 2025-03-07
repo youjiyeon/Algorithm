@@ -10,17 +10,16 @@ public class Main {
             this.money = money;
         }
     }
-    static int n;
-    static long res = 0;
+    static int n, res = 0;
     static Node[] node;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         n = Integer.parseInt(br.readLine());
-        node = new Node[n];
+        node = new Node[n+1];
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             st = new StringTokenizer(br.readLine());
             int days = Integer.parseInt(st.nextToken());
             int money = Integer.parseInt(st.nextToken());
@@ -28,13 +27,13 @@ public class Main {
             node[i] = new Node(days, money);
         }
 
-        back(0, 0);
+        back(1, 0);
         System.out.println(res);
     }
 
     static void back(int d, int sum) {
-        if (d > n) return;
-        if (d == n) {
+        if (d > n+1) return;
+        if (d == n+1) {
             res = Math.max(res, sum);
             return;
         }
