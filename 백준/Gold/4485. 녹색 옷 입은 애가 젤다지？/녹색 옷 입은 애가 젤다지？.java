@@ -1,71 +1,60 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static int N;
-    public static int[][] map, dp,
-            way = {{0, 1},{0, -1},{1, 0},{-1, 0}};
-    public static void main(String[] args) throws IOException {
-        StringBuilder sb = new StringBuilder();
+    static int n;
+    static int[][] arr, dp,
+    way = {{0,-1},{-1,0},{1,0},{0,1}};
+    public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int t = 1;
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
+        int cnt = 1;
+
         while (true) {
-           N = Integer.parseInt(br.readLine());
-           if (N==0) break;
+            // 입력
+            n = Integer.parseInt(br.readLine());
+            if (n == 0) break;
 
-           map = new int[N][N];
-           dp = new int[N][N];
-            for (int i = 0; i < N; i++) {
-                Arrays.fill(dp[i], Integer.MAX_VALUE);
-            }
+            arr = new int[n][n];
+            dp = new int[n][n];
 
-            for (int i = 0; i < N; i++) {
-                StringTokenizer st = new StringTokenizer(br.readLine());
-                for (int j = 0; j < N; j++) {
-                    map[i][j] = Integer.parseInt(st.nextToken());
+            for (int i = 0; i < n; i++) {
+                st = new StringTokenizer(br.readLine());
+                for (int j = 0; j < n; j++) {
+                    arr[i][j] = Integer.parseInt(st.nextToken());
+                    dp[i][j] = Integer.MAX_VALUE;
                 }
             }
 
-            bfs();
-
-/*            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    System.out.print(dp[i][j]+" ");
-                }
-                System.out.println();
-            }*/
-
-            sb.append("Problem ").append(t).append(": ").append(dp[N-1][N-1]).append("\n");
-            t++;
+            sb.append("Problem ").append(cnt++).append(": ").append(bfs()).append("\n");
         }
 
-        System.out.print(sb);
+        System.out.println(sb);
     }
 
-    public static void bfs() {
-        Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[] {0, 0});
-
-        dp[0][0] = map[0][0];
+    static int bfs() {
+        Queue<int[]> q = new ArrayDeque<>();
+        q.offer(new int[] {0,0});
+        dp[0][0] = arr[0][0];
 
         while (!q.isEmpty()) {
-            int x = q.peek()[0];
-            int y = q.peek()[1];
-            q.poll();
+            int[] cur = q.poll();
 
             for (int i = 0; i < 4; i++) {
-                int nx = x+way[i][0];
-                int ny = y+way[i][1];
+                int nx = cur[0]+way[i][0];
+                int ny = cur[1]+way[i][1];
 
-                if (nx<0 || nx>=N || ny<0 || ny>=N) {
-                    continue;
-                }
+                if (nx<0 || nx>=n || ny<0 || ny>=n) continue;
 
-                if (dp[nx][ny] > dp[x][y]+map[nx][ny]) {
-                    dp[nx][ny] = dp[x][y]+map[nx][ny];
-                    q.offer(new int[] {nx, ny});
+                int tmp = dp[cur[0]][cur[1]] + arr[nx][ny];
+                if (dp[nx][ny] > tmp) {
+                    dp[nx][ny] = tmp;
+                    q.offer(new int[] {nx,ny});
                 }
             }
         }
+
+        return dp[n-1][n-1];
     }
 }
