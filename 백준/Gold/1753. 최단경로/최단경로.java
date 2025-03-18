@@ -1,75 +1,66 @@
-import java.io.*;
 import java.util.*;
-
-class Node {
-    int end, weight;
-
-    public Node(int end, int weight){
-        this.end = end;
-        this.weight = weight;
-    }
-}
+import java.io.*;
 
 public class Main {
-    private static final int INF = 100000000;
-    static int v,e,k;
+    static class Node{
+        int n;
+        int w;
+        public Node(int n, int w){
+            this.n = n;
+            this.w = w;
+        }
+    }
+
     static List<Node>[] list;
-    static int[] dist;
-
-
-    public static void main(String[] args) throws IOException {
+    static boolean[] v;
+    static int V;
+    static int[] dp;
+    public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
-        v = Integer.parseInt(st.nextToken());
-        e = Integer.parseInt(st.nextToken());
-        k = Integer.parseInt(br.readLine());
-        list = new ArrayList[v + 1];
-        dist = new int[v + 1];
+        V = Integer.parseInt(st.nextToken());
+        int E = Integer.parseInt(st.nextToken());
+        int s = Integer.parseInt(br.readLine());
 
-        Arrays.fill(dist, INF);
-
-        for(int i = 1; i <= v; i++){
+        list = new List[V+1];
+        for (int i = 0; i <= V; i++) {
             list[i] = new ArrayList<>();
         }
-        
-        for(int i = 0 ; i < e; i++){
+        v = new boolean[V+1];
+        dp = new int[V+1];
+
+        for (int i = 0; i < E; i++) {
             st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
-            int weight = Integer.parseInt(st.nextToken());
-            
-            list[start].add(new Node(end, weight));
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            int w = Integer.parseInt(st.nextToken());
+
+            list[a].add(new Node(b,w));
         }
 
-        StringBuilder sb = new StringBuilder();
-        // 다익스트라 알고리즘
-        dijkstra(k);
-        // 출력 부분
-        for(int i = 1; i <= v; i++){
-            if(dist[i] == INF) sb.append("INF\n");
-            else sb.append(dist[i] + "\n");
+        bfs(s);
+        for (int i = 1; i <= V; i++) {
+            sb.append(dp[i] == Integer.MAX_VALUE ? "INF" : dp[i]).append("\n");
         }
-
         System.out.println(sb);
     }
 
-    private static void dijkstra(int start){
-        PriorityQueue<Node> queue = new PriorityQueue<>((o1, o2)->o1.weight-o2.weight);
-        boolean[] check = new boolean[v + 1];
-        queue.add(new Node(start, 0));
-        dist[start] = 0;
+    static void bfs(int s) {
+        PriorityQueue<Node> q = new PriorityQueue<>((o1,o2)->o1.w-o2.w);
+        q.offer(new Node(s,0));
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[s] = 0;
 
-        while(!queue.isEmpty()){
-            Node curNode = queue.poll();
-            int cur = curNode.end;
+        while (!q.isEmpty()) {
+            Node cur = q.poll();
 
-            if(check[cur] == true) continue;
-            check[cur] = true;
+            if (cur.w > dp[cur.n]) continue;
 
-            for(Node node : list[cur]){
-                if(dist[node.end] > dist[cur] + node.weight){
-                    dist[node.end] = dist[cur] + node.weight;
-                    queue.add(new Node(node.end, dist[node.end]));
+            for (Node next:list[cur.n]) {
+                if (dp[next.n] > dp[cur.n]+next.w) {
+                    dp[next.n] = dp[cur.n]+next.w;
+                    q.offer(new Node(next.n, dp[next.n]));
                 }
             }
         }
