@@ -1,67 +1,54 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main
-{
-    public static class Node{
-        int n;
-        int d;
-
-        public Node(int n, int d) {
-            this.n = n;
-            this.d = d;
-        }
-    }
-    public static int n, m;
-    public static int[][] map, dist,
-    way = {{0,1},{0,-1},{1,0},{-1,0}};
-    public static void main(String[] args) throws IOException {
+public class Main {
+    static int n, m;
+    static int[][] arr, dp,
+    way = {{0,-1},{-1,0},{1,0},{0,1}};
+    public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
+        // 입력
         m = Integer.parseInt(st.nextToken());
         n = Integer.parseInt(st.nextToken());
-        map = new int[n+1][m+1];
-        dist = new int[n+1][m+1];
-        for (int i = 1; i <= n; i++) {
+
+        arr = new int[n][m];
+        dp = new int[n][m];
+
+        for (int i = 0; i < n; i++) {
             String str = br.readLine();
-            for (int j = 0; j < str.length(); j++) {
-                map[i][j+1] = str.charAt(j)-'0';
+            for (int j = 0; j < m; j++) {
+                arr[i][j] = str.charAt(j)-'0';
+                dp[i][j] = Integer.MAX_VALUE;
             }
         }
 
-        System.out.println(dijstra());
+        System.out.println(bfs());
     }
 
-    private static int dijstra() {
-        //q[0] -> r, [1] -> c, [2] -> d
-        PriorityQueue<int[]> q = new PriorityQueue<>((o1,o2)->o1[2]-o2[2]);
-        q.offer(new int[] {1,1,map[1][1]});
-        for (int i = 1; i <= n; i++) {
-            Arrays.fill(dist[i], Integer.MAX_VALUE);
-        }
-        dist[1][1] = map[1][1];
+    static int bfs() {
+        Queue<int[]> q = new ArrayDeque<>();
+        q.offer(new int[] {0,0});
+        dp[0][0] = 0;
 
-        while (!q.isEmpty())
-        {
-            int x = q.peek()[0];
-            int y = q.peek()[1];
-            q.poll();
-            
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+
             for (int i = 0; i < 4; i++) {
-                int nx = x + way[i][0];
-                int ny = y + way[i][1];
+                int nx = cur[0]+way[i][0];
+                int ny = cur[1]+way[i][1];
 
-                if(nx<1 || nx>n || ny<1 || ny>m)
-                    continue;
-                if (dist[nx][ny]>dist[x][y]+map[nx][ny]){
-                    dist[nx][ny]=dist[x][y]+map[nx][ny];
-                    q.offer(new int[] {nx, ny, map[nx][ny]});
+                if (nx<0 || nx>=n || ny<0 || ny>=m) continue;
+
+                int tmp = dp[cur[0]][cur[1]] + arr[nx][ny];
+                if (dp[nx][ny] > tmp) {
+                    dp[nx][ny] = tmp;
+                    q.offer(new int[] {nx,ny});
                 }
             }
         }
-        return dist[n][m];
+
+        return dp[n-1][m-1];
     }
-
-
 }
