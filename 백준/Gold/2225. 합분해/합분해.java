@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     public static int n, k;
     public static final int mod = 1000000000;
-    public static int[][] cache = new int[202][202];
+    public static int[][] cache = new int[201][201];
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
